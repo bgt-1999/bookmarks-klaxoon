@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
+import Form from './components/form/Form';
+
 function App() {
+  const [search, setSearch] = useState('');
+
   return (
-    <div>
-      Clean Project
-    </div>
+    <>
+      <Form setSearch={setSearch} search={search} />
+    </>
   );
 }
 
