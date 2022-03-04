@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 import Form from './components/form/Form';
 
+import { callGetBooks } from './utils/callApi';
+
 function App() {
   const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    callGetBooks();
+  }, []);
 
   return (
     <>
