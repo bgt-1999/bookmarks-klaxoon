@@ -4,13 +4,14 @@ import './form.css';
 type Props = {
     search: string;
     setSearch: (value: string) => void;
+    sendSearch: () => void;
 };
 
-const Form: React.FC<Props> = ({ search, setSearch }) => {
+const Form: React.FC<Props> = ({ search, setSearch, sendSearch }) => {
 
     const submit = (e: React.FormEvent): void => {
         e.preventDefault();
-        console.log('submit', e);
+        sendSearch();
     };
 
     const onChangeSearchField = (e: React.ChangeEvent<HTMLInputElement>): void => {

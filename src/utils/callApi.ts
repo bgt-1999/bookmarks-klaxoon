@@ -1,21 +1,16 @@
-export const callGetBooks = async () => {
+import { VimeoData } from "./types";
 
-    // fetch('http://www.flickr.com/services/oembed/?format=json&url=http%3A//www.flickr.com/photos/bees/2341623661/', {
-    // method: 'GET',
-    // mode: "no-cors",
-    // headers: {
-    //   ContentType: 'application/json;charset=utf-8',
-    //   AccessControlAllowOrigin : '*', 
-    //   AccessControlAllowCredentials: 'true'
-    // }
-    // }).then((response) => {
-    //   console.log('response', response);
-    //   console.log('responseJson', response.json());
-    // }).catch((error) => {
-    //   console.log('error', error);
-    // });
+const API_ONEMBED = 'https://noembed.com/embed?url='
 
-    const ResponseData = await fetch('https://noembed.com/embed?url=http%3A//www.youtube.com/watch%3Fv%3DbDOYN-6gdRE&callback=my_embed_function');
-		const Response = await ResponseData.json();
-    console.log('Response', Response)
+export const callGetBooks = (urlToSearch: string): VimeoData | null => {
+  const url = encodeURI(`${API_ONEMBED}${urlToSearch}`)
+  // test https://vimeo.com/565486457
+  const xhr = new XMLHttpRequest(); 
+  xhr.overrideMimeType("application/json");  
+  xhr.open('GET', url, false);
+  xhr.send();
+  if(xhr.status === 200) {
+    return JSON.parse(xhr.response);
+  }
+  return null;
 };
