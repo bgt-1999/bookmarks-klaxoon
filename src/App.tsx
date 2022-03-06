@@ -5,14 +5,14 @@ import Form from './components/form/Form';
 import PreDisplay from './components/display/Display';
 
 import { callGetBooks } from './utils/callApi';
-import { VimeoData } from './utils/types';
+import { Book } from './utils/types';
 import AddBook from './components/addBook/AddBook';
 import BooksList from './components/booksList/BooksList';
 
 function App() {
   const [search, setSearch] = useState('');
-  const [currentSearch, setCurrentSearch] = useState<VimeoData | null>(null);
-  const [bookmarks, setBookmarks] = useState<VimeoData[]>([]);
+  const [currentSearch, setCurrentSearch] = useState<Book | null>(null);
+  const [bookmarks, setBookmarks] = useState<Book[]>([]);
 
   const sendSearch = async () => {
     setCurrentSearch(callGetBooks(search));
