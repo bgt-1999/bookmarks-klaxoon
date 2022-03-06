@@ -6,19 +6,29 @@ import PreDisplay from './components/display/Display';
 
 import { callGetBooks } from './utils/callApi';
 import { VimeoData } from './utils/types';
+import AddBook from './components/addBook/AddBook';
+import BooksList from './components/booksList/BooksList';
 
 function App() {
   const [search, setSearch] = useState('');
   const [currentSearch, setCurrentSearch] = useState<VimeoData | null>(null);
+  const [bookmarks, setBookmarks] = useState<VimeoData[]>([]);
 
   const sendSearch = async () => {
     setCurrentSearch(callGetBooks(search));
+    setSearch('');
+  };
+
+  const addBook = (): void => {
+    currentSearch && setBookmarks([...bookmarks, currentSearch]);
+    setCurrentSearch(null);
   };
 
   return (
     <>
       <Form setSearch={setSearch} search={search} sendSearch={sendSearch} />
-      {currentSearch && <PreDisplay dataToDisplay={currentSearch} />}
+      {currentSearch && <AddBook addBook={addBook}><PreDisplay dataToDisplay={currentSearch} /></AddBook>}
+      {bookmarks && <BooksList bookmarks={bookmarks} />}
     </>
   );
 }
