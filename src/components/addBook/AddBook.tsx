@@ -1,5 +1,4 @@
 import React, { ReactChild } from "react";
-import { VimeoData } from "../../utils/types";
 
 type Props = { 
     children: ReactChild;

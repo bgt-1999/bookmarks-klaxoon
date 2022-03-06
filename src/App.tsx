@@ -24,11 +24,16 @@ function App() {
     setCurrentSearch(null);
   };
 
+  const removeBook = (index: number): void => {
+    bookmarks.splice(index, 1);
+    setBookmarks([...bookmarks]);
+  };
+
   return (
     <>
       <Form setSearch={setSearch} search={search} sendSearch={sendSearch} />
       {currentSearch && <AddBook addBook={addBook}><PreDisplay dataToDisplay={currentSearch} /></AddBook>}
-      {bookmarks && <BooksList bookmarks={bookmarks} />}
+      {bookmarks && <BooksList bookmarks={bookmarks} removeBook={removeBook} />}
     </>
   );
 }
