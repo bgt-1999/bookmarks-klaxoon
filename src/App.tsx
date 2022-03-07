@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
 
 import Form from './components/form/Form';
 import PreDisplay from './components/display/Display';
