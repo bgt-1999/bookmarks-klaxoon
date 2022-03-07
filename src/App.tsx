@@ -28,13 +28,13 @@ function App() {
     }
   }, []);
 
-  const sendSearch = () => {
+  const sendSearch = (): void => {
     setCurrentSearch(callGetBooks(search));
     setSearch('');
   };
 
   const addBook = (): void => {
-    const newBookMarks: Book[] = currentSearch ? [...bookmarks, currentSearch] : bookmarks;
+    const newBookMarks: Book[] = currentSearch ? [...bookmarks, { ...currentSearch, add_date: new Date().toUTCString() }] : bookmarks;
     setBookmarks(newBookMarks);
     newBookMarks && localStorage.setItem('books', getBooksToString(newBookMarks));
     setCurrentSearch(null);

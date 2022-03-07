@@ -8,4 +8,11 @@ export type Book = {
     provider_name: string;
     width: number;
     height: number;
+    add_date?: string;
+};
+
+export type Time = {
+    seconds: number;
+    minutes: number;
+    hours: number;
 };

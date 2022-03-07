@@ -12,7 +12,7 @@ const booksList: React.FC<Props> = ({ bookmarks, removeBook }) => {
     return (
         <div>
             <h3>Votre BooksList</h3>
-            <div style={{ display: 'flex', alignItems: 'center', width: '100vw', justifyContent: 'space-around', padding: 50, }}>
+            <div style={{ display: 'flex', alignItems: 'center', width: '100vw', justifyContent: 'space-around', padding: 50, flexWrap: 'wrap' }}>
                 {bookmarks.map((book: Book, index: number): ReactElement => (
                     <RemoveBook key={index} onClickRemove={() => removeBook(index)} >
                         <Display dataToDisplay={book} />
