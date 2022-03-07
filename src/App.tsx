@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
 import Form from './components/form/Form';
@@ -8,24 +8,41 @@ import { callGetBooks } from './utils/callApi';
 import { Book } from './utils/types';
 import AddBook from './components/addBook/AddBook';
 import BooksList from './components/booksList/BooksList';
+import { getBooksToString, getStringToBooks } from './utils/utilsFunctions';
 
 function App() {
   const [search, setSearch] = useState('');
   const [currentSearch, setCurrentSearch] = useState<Book | null>(null);
   const [bookmarks, setBookmarks] = useState<Book[]>([]);
 
-  const sendSearch = async () => {
+  useEffect(() => { 
+    const books = localStorage.getItem('books');
+    if(books) {
+      try { 
+        const stringToBooks = getStringToBooks(books);
+        stringToBooks && setBookmarks(stringToBooks)
+      } catch {
+        localStorage.clear();
+        setBookmarks([]);
+      }
+    }
+  }, []);
+
+  const sendSearch = () => {
     setCurrentSearch(callGetBooks(search));
     setSearch('');
   };
 
   const addBook = (): void => {
-    currentSearch && setBookmarks([...bookmarks, currentSearch]);
+    const newBookMarks: Book[] = currentSearch ? [...bookmarks, currentSearch] : bookmarks;
+    setBookmarks(newBookMarks);
+    newBookMarks && localStorage.setItem('books', getBooksToString(newBookMarks));
     setCurrentSearch(null);
   };
 
   const removeBook = (index: number): void => {
     bookmarks.splice(index, 1);
+    bookmarks.length === 0 ? localStorage.removeItem('books') : localStorage.setItem('books', getBooksToString(bookmarks));
     setBookmarks([...bookmarks]);
   };
 
